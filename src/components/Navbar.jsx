@@ -3,18 +3,27 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function Navbar() {
+  const logoContainerStyle = {
+    backgroundColor: 'white',
+    borderRadius: '50%',
+    padding: '5px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
   return (
     <nav className="navbar navbar-expand-lg bg-danger navbar-dark sticky-top w-100">
       <div className="container-fluid">
         {/* Logo + Nombre */}
         <Link className="navbar-brand text-white fw-bold d-flex align-items-center" to="/inicio">
-          <img
-            src="/src/assets/img/logo.png"
-            alt="Logo Food Express"
-            width="50"
-            height="50"
-            className="me-2"
-          />
+          <div style={logoContainerStyle} className="me-2">
+            <img
+              src="/src/assets/img/logo.png"
+              alt="Logo Food Express"
+              width="50"
+              height="50"
+            />
+          </div>
           Food Express
         </Link>
 

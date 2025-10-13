@@ -18,7 +18,7 @@ body {
 .navbar-brand img {
   background-color: white;
   border-radius: 40%;   /* hace circular */
-  padding: -3px;         /* espacio interno */
+  padding: 3px;         /* espacio interno */
 }
 
 main {
