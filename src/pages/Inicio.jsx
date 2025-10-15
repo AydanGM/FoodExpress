@@ -1,8 +1,16 @@
+import Carousel_Inicio from "../components/Carousel_Inicio";
+import Carousel_Promos from "../components/Carousel_Promos";
+import "../styles/inicio.css"
+
+
 export default function Inicio() {
   return (
-        <header class="container text-center my-5">
-      <h1 class="mb-4">Bienvenido a Food Express</h1>
-      <p class="lead mb-4">Tu plataforma de entrega de comida rápida favorita.</p>
-    </header>
+    <div className="container text-center my-5">
+      <h1>Bienvenido a Food Express</h1>
+      <p>Tu plataforma de entrega de comida rápida favorita.</p>
+      <Carousel_Inicio />
+      <Carousel_Promos />
+    </div>
+
   )
 }

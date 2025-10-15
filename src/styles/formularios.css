@@ -1,0 +1,12 @@
+/* Centrado de contenido */
+.fullscreen-center {
+  height: calc(100vh - 120px);
+}
+
+/* Validaciones de formularios */
+.is-valid {
+  border: 2px solid #28a745 !important;
+}
+.is-invalid {
+  border: 2px solid #dc3545 !important;
+}

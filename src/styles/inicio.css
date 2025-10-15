@@ -1,0 +1,128 @@
+/* Transición general en todo */
+* {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Estilos comunes para las tarjetas */
+.card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden; 
+  position: relative;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); 
+}
+
+.carousel-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease; 
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1px solid transparent; 
+}
+
+.carousel-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ff4b2b; 
+}
+
+
+/* Hover sobre tarjetas */
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Efecto de zoom en la imagen */
+.card-img-top {
+  object-fit: cover; 
+  transition: transform 0.4s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05); 
+}
+
+/* Aseguramos que las imágenes de las promociones tengan un tamaño consistente */
+.promo-img-container img,
+.carousel-card img {
+  width: 100%; 
+  height: 200px; 
+  object-fit: cover; 
+}
+
+/* Botones con gradiente */
+.btn-danger {
+  background: linear-gradient(90deg, #ff4b2b, #ff416c);
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 10px rgba(255, 65, 108, 0.4);
+}
+
+/* Hover en los botones */
+.btn-danger:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+  box-shadow: 0 6px 15px rgba(255, 65, 108, 0.6);
+}
+
+/* Títulos con animación */
+h1, h2 {
+  position: relative;
+  display: inline-block;
+}
+
+h1::after, h2::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 4px;
+  bottom: -5px;
+  left: 0;
+  background: linear-gradient(90deg, #ff416c, #ff4b2b);
+  transition: width 0.4s ease-in-out;
+}
+
+h1:hover::after, h2:hover::after {
+  width: 100%;
+}
+
+/* Destacar las tarjetas de promociones */
+section .card:hover {
+  background-color: #fff7f9;
+  border: 1px solid #ff4b2b;
+}
+
+/* Flechas del carrusel ajuste y diseño */
+.react-multiple-carousel__arrow--left {
+  left: 30px;
+}
+.react-multiple-carousel__arrow--right {
+  right: 30px;
+}
+
+.react-multiple-carousel__arrow {
+  background: rgba(255, 65, 108, 0.8);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+
+
+/* Efecto de opiniones (futuro) */
+.card-body p {
+  font-style: italic;
+  color: #555;
+}
+
+
+
+
+/* Estilos responsivos */
+@media (max-width: 576px) {
+  .btn-danger {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}
