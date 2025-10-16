@@ -1,5 +1,6 @@
 import Carousel_Inicio from "../components/Carousel_Inicio";
 import Carousel_Promos from "../components/Carousel_Promos";
+import Usuarios_reviews from "../components/Usuarios_reviews";
 import "../styles/inicio.css"
 
 
@@ -10,6 +11,7 @@ export default function Inicio() {
       <p>Tu plataforma de entrega de comida rápida favorita.</p>
       <Carousel_Inicio />
       <Carousel_Promos />
+      <Usuarios_reviews />
     </div>
 
   )

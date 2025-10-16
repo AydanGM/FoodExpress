@@ -2,7 +2,6 @@ import React from 'react';
 import promoVegetariana from '../assets/img/promo_vegetariana.png';
 import promoHamburguesa from '../assets/img/hamburguesa-con-guacamole.jpg';
 import promoPizzas from '../assets/img/promo_pizzas.png';
-// O usa rutas relativas si están en public/: src="static/img/..."
 
 function Carousel_Promos() {
   const irAMenu = (tipo) => {
@@ -15,7 +14,7 @@ function Carousel_Promos() {
       <div className="row g-4">
         {/* Promo 1 */}
         <div className="col-md-4">
-          <div className="card h-100 shadow-sm promo-img-container">
+          <div className="promo-card h-100 shadow-sm promo-img-container">
             <img src={promoVegetariana} className="card-img-top" alt="Promo Vegetariana" />
             <div className="card-body text-center">
               <h5 className="card-title">Todas las comidas vegetarianas 20% OFF</h5>
@@ -29,7 +28,7 @@ function Carousel_Promos() {
 
         {/* Promo 2 */}
         <div className="col-md-4">
-          <div className="card h-100 shadow-sm promo-img-container">
+          <div className="promo-card h-100 shadow-sm promo-img-container">
             <img src={promoHamburguesa} className="card-img-top" alt="Promo Hamburguesa" />
             <div className="card-body text-center">
               <h5 className="card-title">Hamburguesa big-mamma 2x1</h5>
@@ -43,7 +42,7 @@ function Carousel_Promos() {
 
         {/* Promo 3 */}
         <div className="col-md-4">
-          <div className="card h-100 shadow-sm promo-img-container">
+          <div className="promo-card h-100 shadow-sm promo-img-container">
             <img src={promoPizzas} className="card-img-top" alt="Envio Gratis Pizzas La Cordillera" />
             <div className="card-body text-center">
               <h5 className="card-title">Envio gratis en Pizzas La Cordillera</h5>
