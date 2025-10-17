@@ -1,0 +1,16 @@
+.card-perfil {
+    background-color: #fff;
+    border-radius: 15px;
+    transition: transform 0.2s ease;
+}
+
+.card-perfil h2 {
+    text-align: center !important;
+    display: block;
+    width: 100%;
+
+}
+
+.card-perfil:hover {
+    transform: translateY(-3px);
+}

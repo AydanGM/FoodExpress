@@ -1,8 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function Navbar() {
+
+  const { autenticado, usuario, logout } = useAuth();
+  const navigate = useNavigate();
+  const [menuAbierto, setMenuAbierto] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/inicio");
+  }
+
   const logoContainerStyle = {
     backgroundColor: 'white',
     borderRadius: '50%',
@@ -11,6 +23,7 @@ function Navbar() {
     justifyContent: 'center',
     alignItems: 'center',
   };
+
   return (
     <nav className="navbar navbar-expand-lg bg-danger navbar-dark sticky-top w-100">
       <div className="container-fluid">
@@ -87,27 +100,37 @@ function Navbar() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Cuenta
+                { autenticado ? usuario?.nombre || "Perfil" : "Cuenta"}
               </a>
+
               <ul className="dropdown-menu dropdown-menu-end">
-                <li>
-                  <Link className="dropdown-item" to="/registro">
-                    Registro
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/iniciar-sesion">
-                    Iniciar sesión
-                  </Link>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Cerrar sesión
-                  </a>
-                </li>
+                {!autenticado ? (
+                  <>
+                    <li>
+                      <Link className="dropdown-item" to="/registro">
+                        Registro
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/iniciar-sesion">
+                        Iniciar sesión
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <Link className="dropdown-item" to="/perfil">
+                        Perfil
+                      </Link>
+                    </li>
+                    <li>
+                      <button className="dropdown-item text-danger" onClick={handleLogout}>
+                        Cerrar sesion
+                      </button>
+                    </li>
+                  </>
+                )}
               </ul>
             </li>
           </ul>

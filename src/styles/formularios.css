@@ -38,6 +38,10 @@ main.form-container {
   margin-bottom: 10px; /* Añadimos espacio al botón */
 }
 
+.form-container-login {
+  margin-top: 5rem;
+}
+
 
 /* Validaciones de formularios */
 .is-valid {

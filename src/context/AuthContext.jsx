@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-
   // Función para registrar un nuevo usuario
   const registro = (nuevoUsuario) => {
     setUsuario(nuevoUsuario);
@@ -35,12 +34,15 @@ export const AuthProvider = ({ children }) => {
 
   // Función para cerrar sesión
   const logout = () => {
-    localStorage.removeItem("usuario");
     setUsuario(null);
   };
 
+  const autenticado = !!usuario;
+
+  // Valor del contexto que se proporcionará a los componentes hijos
   const valorContexto = {
     usuario,
+    autenticado,
     registro,
     login,
     logout
@@ -53,4 +55,3 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
-
