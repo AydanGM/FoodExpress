@@ -24,10 +24,29 @@ function Registro() {
   const validarFormulario = () => {
     let nuevosErrores = {};
 
-    if (!form.nombre.trim())  nuevosErrores.nombre = "El nombre es obligatorio."; 
-    if (!form.correo.includes("@")) nuevosErrores.correo = "El correo es obligatorio.";
-    if (form.password.length < 6) nuevosErrores.password = "La contraseña debe tener al menos 6 caracteres.";
-    if (form.password !== form.confirmPassword) nuevosErrores.confirmPassword = "Las contraseñas no coinciden.";
+    // Expresiones regulares
+    const correoReg = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=<>?{}[\]~]).{8,}$/;
+    const nombreReg = /^[a-zA-ZÀ-ÿ\s]{10,40}$/;
+
+    // Validacion nombre
+    if(!nombreReg.test(form.nombre.trim())){
+      nuevosErrores.nombre = "El nombre debe tener al menos 10 letras y solo puede contener caracteres alfabéticos.";
+    }
+
+    // Validacion correo
+    if(!correoReg.test(form.correo.trim())) {
+      nuevosErrores.correo = "Por favor, ingresa un correo electrónico válido.";
+    }
+
+    // Validacion contraseña
+    if(!passwordReg.test(form.password)) {
+      nuevosErrores.password = "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo.";    
+    }
+
+    if (form.password !== form.confirmPassword) {
+      nuevosErrores.confirmPassword = "Las contraseñas no coinciden.";
+    }
 
     setError(nuevosErrores);
     return Object.keys(nuevosErrores).length === 0;
@@ -35,8 +54,8 @@ function Registro() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validarFormulario()) {
 
+    if (validarFormulario()) {
       registro({
         nombre: form.nombre,
         correo: form.correo,

@@ -1,0 +1,22 @@
+.img-nosotros {
+  opacity: 0.8;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.img-nosotros:hover {
+    transform: scale(1.02);
+}
+
+section ul {
+    list-style: none;
+    padding: 0;
+}
+
+section ul li::before{
+    content: "🍴 ";
+}
+
+.bg-nosotros-light {
+    background-color: rgba(255, 255, 255, 0.55);
+}
+
