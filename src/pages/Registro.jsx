@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/formularios.css"
 
@@ -13,6 +14,8 @@ function Registro() {
 
   const [mensaje, setMensaje] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { registro } = useAuth();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.id]: e.target.value });
@@ -33,11 +36,18 @@ function Registro() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validarFormulario()) {
+
+      registro({
+        nombre: form.nombre,
+        correo: form.correo,
+        password: form.password
+      });
+
       setMensaje("Registro exitoso. ¡Bienvenido a FoodExpress!");
       setError({});
-
-      console.log("Datos del formulario:", form);
       setForm({ nombre: "", correo: "", password: "", confirmPassword: "" });      
+
+      setTimeout(() => navigate("/iniciar-sesion"), 2000);
     } else {
       setMensaje("Por favor corrige los errores en el formulario y vuelve a intentarlo.");
     }
@@ -134,9 +144,9 @@ function Registro() {
           </div>
 
           {/* Botón de envío */}
-            <button type="submit" className="btn btn-danger w-100 py-2 fw-semi-bold shadow-sm">
-              Registrarse
-            </button>
+          <button type="submit" className="btn btn-danger w-100 py-2 fw-semi-bold shadow-sm">
+            Registrarse
+          </button>
         </form>
 
         {/* Mensaje de éxito o error */}

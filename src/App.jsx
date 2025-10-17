@@ -6,6 +6,7 @@ import Menu from "./pages/Menu";
 import Registro from "./pages/Registro";
 import IniciarSesion from "./pages/IniciarSesion";
 import Footer from "./components/Footer";
+import Perfil from "./pages/Perfil"
 
 import './styles/base.css';
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="/menu" element={<Menu />} />
             <Route path="/registro" element={<Registro />} />
             <Route path="/iniciar-sesion" element={<IniciarSesion />} />
+            <Route path="/perfil" element={<Perfil />}></Route>
           </Routes>
         </main>
         <Footer />
