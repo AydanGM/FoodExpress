@@ -60,7 +60,7 @@ h1:hover::after, h2:hover::after {
   width: 100%;
 }
 
-.navbar-brand img {
+.nav-img {
   background-color: white;
   border-radius: 50%;   /* hace circular */
   padding: 3px;         /* espacio interno */
@@ -79,4 +79,9 @@ body {
     linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
     url('../assets/img/logo.png') no-repeat center center fixed;
   background-size: 45% auto;
+}
+
+/* Espacio para los botones */
+.btn-danger {
+  margin-bottom: 10px; /* Añadimos espacio al botón */
 }

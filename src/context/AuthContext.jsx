@@ -17,15 +17,18 @@ export const AuthProvider = ({ children }) => {
 
   // Función para registrar un nuevo usuario
   const registro = (nuevoUsuario) => {
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    usuarios.push(nuevoUsuario);
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
     setUsuario(nuevoUsuario);
-    localStorage.setItem("usuario", JSON.stringify(nuevoUsuario));
   };
 
   // Función para iniciar sesión
   const login = (correo, password) => {
-    const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
-    if (usuarioGuardado && usuarioGuardado.correo === correo && usuarioGuardado.password === password) {
-        setUsuario(usuarioGuardado);
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuarioEncontrado = usuarios.find(u => u.correo === correo && u.password === password);
+    if (usuarioEncontrado) {
+        setUsuario(usuarioEncontrado);
         return { exito: true, mensaje: "Inicio de sesión exitoso." };
     } else {
         return { exito: false, mensaje: "Correo o contraseña incorrectos." };

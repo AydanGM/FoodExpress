@@ -9,7 +9,7 @@ function Perfil() {
   // Si no hay usuario autenticado 
   if (!usuario) {
     return(
-      <main className="container my-5 text-center">
+      <main className="container-perfil my-5 text-center">
         <div className="alert alert-warning shadow-sm" role="alert">
           <h4 className="alert-heading mb-2">No has iniciado sesión</h4>
           <p>Por favor inicia sesión para ver tu perfil.</p>

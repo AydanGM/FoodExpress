@@ -35,6 +35,7 @@ function Navbar() {
               alt="Logo Food Express"
               width="50"
               height="50"
+              className="nav-img"
             />
           </div>
           Food Express
