@@ -37,7 +37,8 @@ export const AuthProvider = ({ children }) => {
 
   // Función para cerrar sesión
   const logout = () => {
-    setUsuario(null);
+    localStorage.removeItem("usuario");
+    setUsuario(null); 
   };
 
   const autenticado = !!usuario;

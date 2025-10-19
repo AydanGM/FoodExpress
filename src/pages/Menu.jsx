@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-function Menu() {
+export default function Menu() {
   const[items, setItems] = useState([]);
   const[titulo, setTitulo] = useState('Comidas')
   const[subtitulo, setSubtitulo] = useState('Selecciona la comida que gustes!!')
   const[loading, setLoading] = useState(true)
   const[error, setError] = useState(null)
 
+  // usar el hook de react-router para obtener la query string reactiva
+  const location = useLocation();
+
   useEffect(() =>{
-    const seleccion = new URLSearchParams(window.location.search);
+    const seleccion = new URLSearchParams(location.search);
     const tipoSeleccionado = seleccion.get("tipo");
         
     const fetchData = async () => {
@@ -49,7 +53,7 @@ function Menu() {
     };
 
     fetchData();
-  }, [window.location.search]);
+  }, [location.search]); // <-- dependemos de location.search para re-ejecutar al cambiar query
 
   if (loading) return <p className="text-center my-5">Cargando menú...</p>;
   if (error) return <p className="text-center text-danger my-5">Error: {error}</p>;
@@ -70,7 +74,7 @@ function Menu() {
                                 <div className="card h-100 shadow-sm">
                                     {item.tipoElemento === 'comida' ? (
                                         <>
-                                            <img src={item.IMAGEN_URL || '/assets/default.png'} className="card-img-top" alt={item.NOMBRE} />
+                                            <img src={item.IMAGEN_URL || '/assets/img/default.png'} className="card-img-top" alt={item.NOMBRE} />
                                             <div className="card-body text-center d-flex flex-column">
                                                 <h5 className="card-title">{item.NOMBRE}</h5>
                                                 <p className="card-text text-capitalize text-muted">{item.CATEGORIA} - ${item.PRECIO}</p>
@@ -93,5 +97,3 @@ function Menu() {
     );
 
 }
-
-export default Menu;
