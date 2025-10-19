@@ -15,6 +15,7 @@ vi.mock("../context/AuthContext", () => ({
 // Esto permite renderizar <Link> dentro de MemoryRouter sin errores
 vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return { ...actual, useNavigate: () => mockNavigate };
 });
 
@@ -48,7 +49,11 @@ describe("IniciarSesion page", () => {
 
   it("llama a login y navega a '/' cuando login es exitoso", async () => {
     // Se prepara el mock de login para simular exito
-    mockLogin.mockReturnValue({ exito: true, mensaje: "Ingreso correcto" });
+    mockLogin.mockReturnValue({
+      exito: true,
+      mensaje: "Ingreso correcto",
+      usuario: { nombre: "Test User" },
+    });
 
     render(
       <MemoryRouter>
@@ -70,13 +75,10 @@ describe("IniciarSesion page", () => {
     // login debe ser llamado con los valores del formulario
     expect(mockLogin).toHaveBeenCalledWith("user@example.com", "Password123");
 
-    // esperar mensaje de exito mostrado en la UI
-    expect(await screen.findByText(/Ingreso correcto/i)).toBeInTheDocument();
-
-    // esperar que la navegacion ocurra (setTimeout interno en el componente)
-    await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith("/");
-    }, { timeout: 3500 });
+    // La navegación es síncrona, no se necesita waitFor
+    expect(mockNavigate).toHaveBeenCalledWith("/", {
+      state: { message: "¡Bienvenido de nuevo, Test User!" },
+    });
   });
 
   it("muestra mensaje de error cuando login falla y no navega", async () => {

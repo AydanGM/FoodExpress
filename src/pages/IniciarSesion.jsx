@@ -1,20 +1,27 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/formularios.css"
 
 function IniciarSesion() {
-
   const [form, setForm] = useState({
     correo: "",
     password: ""
   });
 
-  const [mensaje, setMensaje] = useState("");
   const [error, setError] = useState({});
   const navigate = useNavigate();
   const { login } = useAuth();
+  const location = useLocation();
+
+  const [mensaje, setMensaje] = useState(location.state?.message || "");
+
+  useEffect(() => {
+    if (location.state?.message) {
+      setMensaje(location.state.message);
+    }
+  }, [location.state]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.id]: e.target.value });
@@ -38,11 +45,9 @@ function IniciarSesion() {
 
       if (resultado.exito) {
         setMensaje(resultado.mensaje);
-        setError({});
-        setTimeout(() => {
-          navigate("/")
-        }, 2000);
+        navigate("/", { state: { message: `¡Bienvenido de nuevo, ${resultado.usuario.nombre}!` } });
       } else {
+        setError({ form: resultado.mensaje });
         setMensaje(resultado.mensaje);
       }
     } else {

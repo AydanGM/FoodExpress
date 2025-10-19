@@ -15,6 +15,15 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  // Persiste el usuario en localStorage cada vez que cambia
+  useEffect(() => {
+    if (usuario) {
+      localStorage.setItem("usuario", JSON.stringify(usuario));
+    } else {
+      localStorage.removeItem("usuario");
+    }
+  }, [usuario]);
+
   // Función para registrar un nuevo usuario
   const registro = (nuevoUsuario) => {
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
@@ -29,7 +38,7 @@ export const AuthProvider = ({ children }) => {
     const usuarioEncontrado = usuarios.find(u => u.correo === correo && u.password === password);
     if (usuarioEncontrado) {
         setUsuario(usuarioEncontrado);
-        return { exito: true, mensaje: "Inicio de sesión exitoso." };
+        return { exito: true, mensaje: "Inicio de sesión exitoso.", usuario: usuarioEncontrado };
     } else {
         return { exito: false, mensaje: "Correo o contraseña incorrectos." };
     };
@@ -37,7 +46,6 @@ export const AuthProvider = ({ children }) => {
 
   // Función para cerrar sesión
   const logout = () => {
-    localStorage.removeItem("usuario");
     setUsuario(null); 
   };
 

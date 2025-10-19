@@ -1,18 +1,37 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useState } from "react";
+import { useCart } from "../context/CartContext";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import CartIcon from "../components/CartIcon";
 
 function Navbar() {
 
   const { autenticado, usuario, logout } = useAuth();
+  const { clearCart } = useCart();
   const navigate = useNavigate();
-  const [menuAbierto, setMenuAbierto] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleLogout = () => {
+    clearCart();
     logout();
-    navigate("/inicio");
+    navigate("/inicio", { state: { message: "Has cerrado sesión exitosamente." } });
+  }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/menu?q=${searchTerm.trim()}`);
+    }
+  }
+
+  const handleSearchChange = (e) => {
+    const newSearchTerm = e.target.value;
+    setSearchTerm(newSearchTerm);
+    if (newSearchTerm === "") {
+      navigate("/menu");
+    }
   }
 
   const logoContainerStyle = {
@@ -26,7 +45,7 @@ function Navbar() {
 
   return (
     <nav className="navbar navbar-expand-lg bg-danger navbar-dark sticky-top w-100">
-      <div className="container-fluid">
+      <div className="container">
         {/* Logo + Nombre */}
         <Link className="navbar-brand text-white fw-bold d-flex align-items-center" to="/inicio">
           <div style={logoContainerStyle} className="me-2">
@@ -41,7 +60,7 @@ function Navbar() {
           Food Express
         </Link>
 
-        {/* Botón Hamburguesa (para pantallas pequeñas) */}
+        {/* Boton Hamburguesa (para pantallas pequeñas) */}
         <button
           className="navbar-toggler"
           type="button"
@@ -78,12 +97,14 @@ function Navbar() {
 
           {/* Barra de búsqueda centrada */}
           <div className="mx-auto search-bar">
-            <form className="d-flex" role="search">
+            <form className="d-flex" role="search" onSubmit={handleSearchSubmit}>
               <input
                 className="form-control me-1"
                 type="search"
                 placeholder="Buscar..."
                 aria-label="Search"
+                value={searchTerm}
+                onChange={handleSearchChange}
               />
               <button className="btn btn-outline-light" type="submit">
                 Buscar
@@ -91,50 +112,54 @@ function Navbar() {
             </form>
           </div>
 
-          {/* Dropdown de cuenta (derecha) */}
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                { autenticado ? usuario?.nombre || "Perfil" : "Cuenta"}
-              </a>
+          {/* Icono del carrito, a la izquierda del botón cuenta */}
+          <div className="d-flex align-items-center">
+            <CartIcon className="me-2" />
+            {/* Dropdown de cuenta (derecha) */}
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  { autenticado ? usuario?.nombre || "Perfil" : "Cuenta"}
+                </a>
 
-              <ul className="dropdown-menu dropdown-menu-end">
-                {!autenticado ? (
-                  <>
-                    <li>
-                      <Link className="dropdown-item" to="/registro">
-                        Registro
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="/iniciar-sesion">
-                        Iniciar sesión
-                      </Link>
-                    </li>
-                  </>
-                ) : (
-                  <>
-                    <li>
-                      <Link className="dropdown-item" to="/perfil">
-                        Perfil
-                      </Link>
-                    </li>
-                    <li>
-                      <button className="dropdown-item text-danger" onClick={handleLogout}>
-                        Cerrar sesion
-                      </button>
-                    </li>
-                  </>
-                )}
-              </ul>
-            </li>
-          </ul>
+                <ul className="dropdown-menu dropdown-menu-end">
+                  {!autenticado ? (
+                    <>
+                      <li>
+                        <Link className="dropdown-item" to="/registro">
+                          Registro
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/iniciar-sesion">
+                          Iniciar sesión
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li>
+                        <Link className="dropdown-item" to="/perfil">
+                          Perfil
+                        </Link>
+                      </li>
+                      <li>
+                        <button className="dropdown-item text-danger" onClick={handleLogout}>
+                          Cerrar sesion
+                        </button>
+                      </li>
+                    </>
+                  )}
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>

@@ -9,9 +9,9 @@ h1, h2, h5 {
   min-height: 100vh; 
 }
 
-/* Estilo para la barra de búsqueda en el centro del navbar */
+/* Estilo para la barra de busqueda en el centro del navbar */
 .search-bar {
-  width: 25%;
+  width: 40%;
 }
 .search-bar .form-control {
   border-radius: 20px;

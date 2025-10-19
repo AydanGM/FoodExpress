@@ -1,5 +1,7 @@
-import {render, screen} from "@testing-library/react";
-import { describe, expect, test, vi } from "vitest";
+import {render, screen, cleanup} from "@testing-library/react";
+import { describe, expect, test, vi, afterEach } from "vitest";
+import { MemoryRouter } from "react-router-dom";
+import { NotificationProvider } from "../context/NotificationContext";
 
 //Mockear componentes para aislar la prueba de inicio
 //vi.mock reemplaza el modulo importado por una implementacion minima 
@@ -16,21 +18,33 @@ vi.mock("../components/Usuarios_reviews", () => ({
 //importa el componente bajo prueba (usando las versiones mockeadas)
 import Inicio from "../pages/Inicio";
 
+afterEach(cleanup);
+
+const renderWithProviders = () => {
+  return render(
+    <MemoryRouter>
+      <NotificationProvider>
+        <Inicio />
+      </NotificationProvider>
+    </MemoryRouter>
+  );
+};
+
 describe("Inicio", () => {
     test("muestra el titulo principal", () => {
         //render monta el componente en un DOM virtual (JSDOM)
-        render(<Inicio />);
+        renderWithProviders();
         expect(screen.getByRole("heading", {name: /Bienvenido a Food Express/i})).toBeInTheDocument();
     });
 
     test("muestra el parrafo descriptivo", () => {
-        render(<Inicio />);
+        renderWithProviders();
         //getbytext busca texto visible exacto
         expect(screen.getByText(/Tu plataforma de entrega de comida rápida favorita\./i)).toBeInTheDocument();
     });
 
     test("renderizaaa componentes hijos (mocked)", () => {
-        render(<Inicio />);
+        renderWithProviders();
         //getByTestId accede a los elementos creados por los mocks
         expect(screen.getByTestId("carousel-inicio")).toBeInTheDocument();
         expect(screen.getByTestId("carousel-promos")).toBeInTheDocument();
@@ -39,7 +53,7 @@ describe("Inicio", () => {
 
     test("contenedor raiz tiene las clases esperadas", () => {
         //render devuelve un objeto que incluye 'container' con el DOM raiz
-        const { container } = render(<Inicio />);
+        const { container } = renderWithProviders();
         // querySelector localiza el div raíz por la clase "container"
         const root = container.querySelector("div.container");
         expect(root).toBeInTheDocument();

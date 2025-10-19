@@ -2,6 +2,9 @@ import { render, screen, waitFor, cleanup } from "@testing-library/react";
 import { vi } from "vitest";
 import { MemoryRouter } from "react-router-dom";
 import Menu from "../pages/Menu";
+import { AuthProvider } from "../context/AuthContext";
+import { CartProvider } from "../context/CartContext";
+import { NotificationProvider } from "../context/NotificationContext";
 
 /*
   Test independiente del backend:
@@ -39,9 +42,15 @@ test("carga y renderiza items usando datos locales (no requiere backend)", async
 
   // se envuelve con MemoryRouter para que useLocation() esté disponible
   render(
-    <MemoryRouter>
-      <Menu />
-    </MemoryRouter>
+    <AuthProvider>
+      <NotificationProvider>
+        <CartProvider>
+          <MemoryRouter>
+            <Menu />
+          </MemoryRouter>
+        </CartProvider>
+      </NotificationProvider>
+    </AuthProvider>
   );
 
   // busca el heading del item
@@ -59,9 +68,15 @@ test("muestra mensaje de error cuando fetch (stub) devuelve ok: false", async ()
   ));
 
   render(
-    <MemoryRouter>
-      <Menu />
-    </MemoryRouter>
+    <AuthProvider>
+      <NotificationProvider>
+        <CartProvider>
+          <MemoryRouter>
+            <Menu />
+          </MemoryRouter>
+        </CartProvider>
+      </NotificationProvider>
+    </AuthProvider>
   );
 
   // el componente debe mostrar algun texto de error

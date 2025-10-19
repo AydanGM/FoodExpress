@@ -62,11 +62,7 @@ function Registro() {
         password: form.password
       });
 
-      setMensaje("Registro exitoso. ¡Bienvenido a FoodExpress!");
-      setError({});
-      setForm({ nombre: "", correo: "", password: "", confirmPassword: "" });      
-
-      setTimeout(() => navigate("/iniciar-sesion"), 2000);
+      navigate("/iniciar-sesion", { state: { message: "¡Registro exitoso! Ahora puedes iniciar sesión." } });
     } else {
       setMensaje("Por favor corrige los errores en el formulario y vuelve a intentarlo.");
     }
