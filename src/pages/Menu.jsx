@@ -26,7 +26,7 @@ export default function Menu() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const API_URL_BASE = 'http://localhost:3001/api';
+        const API_URL_BASE = import.meta.env.VITE_API_URL_BASE || 'http://localhost:3001/api';
 
         let url = `${API_URL_BASE}/productos`;
         let tipoElemento = 'comida';

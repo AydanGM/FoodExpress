@@ -4,6 +4,7 @@ import { useCart } from "../context/CartContext";
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import logoSrc from "../assets/img/logo.png"; // Importa el logo
 import CartIcon from "../components/CartIcon";
 
 function Navbar() {
@@ -50,7 +51,7 @@ function Navbar() {
         <Link className="navbar-brand text-white fw-bold d-flex align-items-center" to="/inicio">
           <div style={logoContainerStyle} className="me-2">
             <img
-              src="/src/assets/img/logo.png"
+              src={logoSrc} // Usa la variable importada
               alt="Logo Food Express"
               width="50"
               height="50"
